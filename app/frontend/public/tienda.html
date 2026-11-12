@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda · KODELO</title>
+  <link rel="icon" href="/img/kody.svg" type="image/svg+xml">
+  <script src="/js/tema-inicial.js"></script>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/tienda.css">
+  <script type="module" src="/js/tienda.js"></script>
+</head>
+<body>
+  <div class="app">
+    <nav class="lateral" aria-label="Menú principal">
+      <a class="marca" href="/inicio">
+        <span class="marca__logo" aria-hidden="true">&lt;/&gt;</span>
+        <span class="marca__texto">KODELO</span>
+      </a>
+      <ul class="navegacion">
+        <li><a class="nav__enlace" href="/inicio"><span class="icono icono--inicio" aria-hidden="true"></span><span class="nav__texto">Inicio</span></a></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El perfil"><span class="icono icono--perfil" aria-hidden="true"></span><span class="nav__texto">Perfil</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El chat con KODY"><img src="/img/kody.svg" width="24" height="24" alt="" class="nav__kody"><span class="nav__texto">KODY</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><a class="nav__enlace" href="/tienda" aria-current="page"><span class="icono icono--tienda" aria-hidden="true"></span><span class="nav__texto">Tienda</span></a></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El ranking"><span class="icono icono--ranking" aria-hidden="true"></span><span class="nav__texto">Ranking</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El historial"><span class="icono icono--historial" aria-hidden="true"></span><span class="nav__texto">Historial</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El modo práctica"><span class="icono icono--practica" aria-hidden="true"></span><span class="nav__texto">Práctica</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+      </ul>
+      <ul class="lateral__pie">
+        <li><button class="nav__enlace nav__enlace--tema" type="button" id="boton-tema"><span class="icono icono--luna" aria-hidden="true"></span><span class="nav__texto">Modo oscuro</span></button></li>
+        <li><button class="nav__enlace" type="button" id="boton-salir"><span class="icono icono--salir" aria-hidden="true"></span><span class="nav__texto">Cerrar sesión</span></button></li>
+      </ul>
+    </nav>
+
+    <main class="contenido" aria-busy="true">
+      <header class="cabecera-pagina cabecera-pagina--tienda">
+        <div>
+          <h1 class="cabecera-pagina__titulo">Tienda</h1>
+          <p class="cabecera-pagina__subtitulo">Gasta tus monedas en cosméticos</p>
+        </div>
+        <div class="cabecera-pagina__acciones">
+          <span class="monedero"><img src="/img/iconos/moneda.svg" width="14" height="14" alt=""><span id="monedas" aria-live="polite">— monedas</span></span>
+          <span class="avatar-inicial" id="avatar" aria-hidden="true">?</span>
+        </div>
+      </header>
+
+      <div class="pestanas-tienda" role="tablist" aria-label="Categorías de la tienda">
+        <button class="pestanas-tienda__boton" type="button" role="tab" aria-selected="true" aria-controls="rejilla" data-filtro="AVATAR">Avatares</button>
+        <button class="pestanas-tienda__boton" type="button" role="tab" aria-selected="false" aria-controls="rejilla" data-filtro="MARCO" tabindex="-1">Marcos</button>
+        <button class="pestanas-tienda__boton" type="button" role="tab" aria-selected="false" aria-controls="rejilla" data-filtro="TEMA_EDITOR" tabindex="-1">Temas</button>
+        <button class="pestanas-tienda__boton" type="button" role="tab" aria-selected="false" aria-controls="rejilla" data-filtro="FONDO" tabindex="-1">Fondos</button>
+        <button class="pestanas-tienda__boton" type="button" role="tab" aria-selected="false" aria-controls="rejilla" data-filtro="INVENTARIO" tabindex="-1">Mi inventario</button>
+      </div>
+
+      <section class="rejilla" id="rejilla" role="tabpanel" aria-label="Ítems"></section>
+      <p class="rejilla__vacia" id="vacia" hidden></p>
+    </main>
+  </div>
+</body>
+</html>

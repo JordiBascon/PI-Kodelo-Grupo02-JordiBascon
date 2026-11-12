@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es" data-tema="oscuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arena · KODELO</title>
+  <link rel="icon" href="/img/kody.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/arena.css">
+  <script type="module" src="/js/arena.js"></script>
+</head>
+<body class="arena">
+  <header class="arena__cabecera">
+    <div class="arena__duelo">
+      <span class="marca__logo marca__logo--pequeno" aria-hidden="true">&lt;/&gt;</span>
+      <span class="sigla" id="sigla-lenguaje">—</span>
+      <span class="arena__nombre-duelo" id="nombre-duelo">Cargando duelo…</span>
+    </div>
+
+    <div class="arena__marcador">
+      <div class="jugador">
+        <span class="jugador__avatar" id="avatar-propio" aria-hidden="true">?</span>
+        <span class="jugador__datos">
+          <span class="jugador__nick" id="nick-propio">—</span>
+          <span class="jugador__elo" id="elo-propio">—</span>
+        </span>
+      </div>
+      <div class="reloj" id="reloj" role="timer" aria-live="off" aria-label="Tiempo restante">10:00</div>
+      <div class="jugador jugador--rival">
+        <span class="jugador__datos">
+          <span class="jugador__nick">Rival</span>
+          <span class="jugador__elo">Emparejamiento en la R2</span>
+        </span>
+        <span class="jugador__avatar jugador__avatar--rival" aria-hidden="true">?</span>
+      </div>
+    </div>
+
+    <button class="arena__rendirse" type="button" id="boton-rendirse">Rendirse</button>
+  </header>
+
+  <main class="arena__cuerpo" aria-busy="true">
+    <section class="panel panel--problema" aria-labelledby="titulo-problema">
+      <div class="problema">
+        <span class="dificultad" id="dificultad">—</span>
+        <h1 class="problema__titulo" id="titulo-problema">Cargando problema…</h1>
+        <p class="problema__enunciado" id="enunciado"></p>
+        <div class="problema__limites" id="limites"></div>
+        <div id="ejemplos"></div>
+      </div>
+
+      <aside class="ayudas" aria-labelledby="titulo-ayudas">
+        <div class="ayudas__cabecera">
+          <img src="/img/iconos/bombilla.svg" width="20" height="20" alt="">
+          <h2 class="ayudas__titulo" id="titulo-ayudas">Ayudas de KODY</h2>
+          <span class="ayudas__contador" id="contador-ayudas">tú 0/3</span>
+        </div>
+        <div class="ayudas__puntos" aria-hidden="true">
+          <span class="ayudas__punto ayudas__punto--libre"></span>
+          <span class="ayudas__punto ayudas__punto--libre"></span>
+          <span class="ayudas__punto ayudas__punto--libre"></span>
+        </div>
+        <p class="ayudas__mensaje" id="mensaje-kody" aria-live="polite">Tienes 3 ayudas para este duelo. Úsalas bien: puedo revisar tu código o darte una pista.</p>
+        <div class="ayudas__botones">
+          <button class="boton boton--secundario" type="button" data-ayuda="revisar">Revisar mi código</button>
+          <button class="boton boton--secundario" type="button" data-ayuda="pista">Dame una pista</button>
+        </div>
+      </aside>
+    </section>
+
+    <section class="panel panel--editor" aria-label="Editor de código">
+      <div class="editor__pestana" id="nombre-archivo">solucion</div>
+      <div class="editor">
+        <pre class="editor__numeros" id="numeros" aria-hidden="true">1</pre>
+        <label class="oculto-accesible" for="codigo">Tu solución</label>
+        <textarea class="editor__codigo" id="codigo" spellcheck="false" autocapitalize="off" autocomplete="off" wrap="off"></textarea>
+      </div>
+      <div class="pruebas">
+        <div class="pruebas__barra">
+          <h2 class="pruebas__titulo">Tests</h2>
+          <span class="pruebas__contador" id="contador-tests">0 / 0 superados</span>
+          <div class="pruebas__botones">
+            <button class="boton pruebas__ejecutar" type="button" id="boton-ejecutar">Ejecutar</button>
+            <button class="boton boton--principal pruebas__enviar" type="button" id="boton-enviar">Enviar</button>
+          </div>
+        </div>
+        <ul class="pruebas__lista" id="lista-tests"></ul>
+        <p class="pruebas__aviso" id="aviso-tests" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <aside class="panel panel--estado" aria-label="Estado del duelo">
+      <h2 class="estado__titulo">PROGRESO</h2>
+      <div class="progreso">
+        <div class="progreso__fila"><span class="progreso__nombre">Tú</span><span id="progreso-propio-texto">0/0</span></div>
+        <div class="progreso__barra"><span class="progreso__relleno" id="progreso-propio"></span></div>
+      </div>
+      <div class="progreso">
+        <div class="progreso__fila"><span class="progreso__nombre">Rival</span><span>—</span></div>
+        <div class="progreso__barra"><span class="progreso__relleno"></span></div>
+        <p class="progreso__nota">El rival en tiempo real llega con el emparejamiento</p>
+      </div>
+      <hr class="estado__separador">
+      <h2 class="estado__titulo">EN JUEGO</h2>
+      <dl class="en-juego">
+        <div><dt>Si ganas</dt><dd class="en-juego__sube" id="si-ganas">—</dd></div>
+        <div><dt>Si pierdes</dt><dd class="en-juego__baja" id="si-pierdes">—</dd></div>
+        <div><dt>Ayudas de KODY</dt><dd id="ayudas-resumen">tú 0/3</dd></div>
+      </dl>
+      <p class="en-juego__nota">Calculado con la fórmula ELO frente a un rival de tu mismo nivel en este lenguaje.</p>
+    </aside>
+  </main>
+
+  <dialog class="dialogo" id="dialogo-rendirse" aria-labelledby="titulo-dialogo">
+    <h2 class="dialogo__titulo" id="titulo-dialogo">¿Seguro que quieres rendirte?</h2>
+    <p class="dialogo__texto">Abandonar un duelo en curso cuenta como derrota.</p>
+    <div class="dialogo__botones">
+      <button class="boton boton--secundario" type="button" value="cancelar" id="boton-seguir">Seguir jugando</button>
+      <button class="boton boton--peligro" type="button" value="rendirse" id="boton-confirmar-rendirse">Rendirme</button>
+    </div>
+  </dialog>
+</body>
+</html>

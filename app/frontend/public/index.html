@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>KODELO</title>
+  <script>
+    (function () {
+      var sesion = null;
+      try {
+        sesion = JSON.parse(localStorage.getItem('kodelo.sesion'));
+      } catch (e) {}
+      window.location.replace(sesion && sesion.token ? '/inicio' : '/login');
+    })();
+  </script>
+</head>
+<body></body>
+</html>

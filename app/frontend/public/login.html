@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar · KODELO</title>
+  <link rel="icon" href="/img/kody.svg" type="image/svg+xml">
+  <script src="/js/tema-inicial.js"></script>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/login.css">
+  <script type="module" src="/js/login.js"></script>
+</head>
+<body class="login">
+  <section class="login__hero" aria-label="Presentación de KODELO">
+    <a class="marca" href="/login">
+      <span class="marca__logo" aria-hidden="true">&lt;/&gt;</span>
+      KODELO
+    </a>
+
+    <div class="login__lema">
+      <h1 class="login__titulo">
+        Mismo problema.<br>
+        Dos programadores.<br>
+        <span class="login__titulo-acento">Gana el mejor.</span>
+      </h1>
+      <p class="login__descripcion">Duelos de programación 1v1 en tiempo real. Sube tu ELO, consigue monedas y personaliza tu perfil.</p>
+    </div>
+
+    <div class="login__pie">
+      <dl class="login__datos">
+        <div>
+          <dt>1v1</dt>
+          <dd>En tiempo real</dd>
+        </div>
+        <div>
+          <dt>ELO</dt>
+          <dd>Emparejamiento justo</dd>
+        </div>
+        <div>
+          <dt>7</dt>
+          <dd>Lenguajes para competir</dd>
+        </div>
+      </dl>
+      <div class="login__kody">
+        <img src="/img/kody.svg" width="88" height="88" alt="KODY, la mascota de KODELO">
+        <p class="login__bocadillo">Soy KODY. Entra y te busco un rival de tu nivel.</p>
+      </div>
+    </div>
+  </section>
+
+  <main class="login__principal">
+    <button class="boton-icono login__tema" type="button" id="boton-tema">
+      <img src="/img/icono-luna.svg" width="20" height="20" alt="">
+    </button>
+
+    <div class="tarjeta-acceso">
+      <div class="pestanas" role="tablist" aria-label="Acceso">
+        <button class="pestanas__boton" type="button" role="tab" id="pestana-entrar" aria-controls="formulario-entrar" aria-selected="true">Entrar</button>
+        <button class="pestanas__boton" type="button" role="tab" id="pestana-registro" aria-controls="formulario-registro" aria-selected="false" tabindex="-1">Crear cuenta</button>
+      </div>
+
+      <form class="formulario" id="formulario-entrar" role="tabpanel" aria-labelledby="pestana-entrar" novalidate>
+        <div class="formulario__cabecera">
+          <h2 class="formulario__titulo">Bienvenido de nuevo</h2>
+          <p class="formulario__subtitulo">Entra con tu usuario o correo.</p>
+        </div>
+        <div class="campo">
+          <label class="campo__etiqueta" for="entrar-identificador">Usuario o correo</label>
+          <input class="campo__entrada" id="entrar-identificador" name="identificador" type="text" placeholder="tu_usuario" autocomplete="username" required>
+        </div>
+        <div class="campo">
+          <label class="campo__etiqueta" for="entrar-password">Contraseña</label>
+          <input class="campo__entrada" id="entrar-password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" required>
+        </div>
+        <p class="aviso aviso--error" role="alert" hidden></p>
+        <button class="boton boton--principal formulario__enviar" type="submit">Entrar</button>
+      </form>
+
+      <form class="formulario" id="formulario-registro" role="tabpanel" aria-labelledby="pestana-registro" novalidate hidden>
+        <div class="formulario__cabecera">
+          <h2 class="formulario__titulo">Crea tu cuenta</h2>
+          <p class="formulario__subtitulo">Empiezas con 1000 de ELO en cada lenguaje.</p>
+        </div>
+        <div class="campo">
+          <label class="campo__etiqueta" for="registro-nick">Nombre de usuario</label>
+          <input class="campo__entrada" id="registro-nick" name="nick" type="text" placeholder="tu_usuario" autocomplete="username" minlength="3" maxlength="30" pattern="[A-Za-z0-9_]+" required>
+        </div>
+        <div class="campo">
+          <label class="campo__etiqueta" for="registro-email">Correo electrónico</label>
+          <input class="campo__entrada" id="registro-email" name="email" type="email" placeholder="tu@correo.com" autocomplete="email" required>
+        </div>
+        <div class="campo">
+          <label class="campo__etiqueta" for="registro-password">Contraseña</label>
+          <input class="campo__entrada" id="registro-password" name="password" type="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" minlength="8" maxlength="72" required>
+        </div>
+        <p class="aviso aviso--error" role="alert" hidden></p>
+        <button class="boton boton--principal formulario__enviar" type="submit">Crear cuenta</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

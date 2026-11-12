@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio · KODELO</title>
+  <link rel="icon" href="/img/kody.svg" type="image/svg+xml">
+  <script src="/js/tema-inicial.js"></script>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/inicio.css">
+  <script type="module" src="/js/inicio.js"></script>
+</head>
+<body>
+  <div class="app">
+    <nav class="lateral" aria-label="Menú principal">
+      <a class="marca" href="/inicio">
+        <span class="marca__logo" aria-hidden="true">&lt;/&gt;</span>
+        <span class="marca__texto">KODELO</span>
+      </a>
+      <ul class="navegacion">
+        <li><a class="nav__enlace" href="/inicio" aria-current="page"><span class="icono icono--inicio" aria-hidden="true"></span><span class="nav__texto">Inicio</span></a></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El perfil"><span class="icono icono--perfil" aria-hidden="true"></span><span class="nav__texto">Perfil</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El chat con KODY"><img src="/img/kody.svg" width="24" height="24" alt="" class="nav__kody"><span class="nav__texto">KODY</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><a class="nav__enlace" href="/tienda"><span class="icono icono--tienda" aria-hidden="true"></span><span class="nav__texto">Tienda</span></a></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El ranking"><span class="icono icono--ranking" aria-hidden="true"></span><span class="nav__texto">Ranking</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El historial"><span class="icono icono--historial" aria-hidden="true"></span><span class="nav__texto">Historial</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El modo práctica"><span class="icono icono--practica" aria-hidden="true"></span><span class="nav__texto">Práctica</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+      </ul>
+      <ul class="lateral__pie">
+        <li><button class="nav__enlace nav__enlace--tema" type="button" id="boton-tema"><span class="icono icono--luna" aria-hidden="true"></span><span class="nav__texto">Modo oscuro</span></button></li>
+        <li><button class="nav__enlace" type="button" id="boton-salir"><span class="icono icono--salir" aria-hidden="true"></span><span class="nav__texto">Cerrar sesión</span></button></li>
+      </ul>
+    </nav>
+
+    <main class="contenido" aria-busy="true">
+      <section class="bienvenida" aria-labelledby="saludo">
+        <div class="bienvenida__texto">
+          <p class="bienvenida__antetitulo">KODY · TU COMPAÑERO DE DUELOS</p>
+          <h1 class="bienvenida__titulo" id="saludo">Hola. ¿Listo para el siguiente duelo?</h1>
+          <p class="bienvenida__frase" id="frase-del-dia" hidden></p>
+          <div class="bienvenida__chips">
+            <span class="chip" id="chip-racha">Racha: —</span>
+            <span class="chip" id="chip-semana">— ELO esta semana</span>
+          </div>
+          <a class="boton boton--principal bienvenida__boton" id="boton-buscar-hero" href="/arena">Buscar partida</a>
+        </div>
+        <img class="bienvenida__kody" src="/img/kody.svg" width="130" height="130" alt="KODY saludando">
+      </section>
+
+      <header class="cabecera-pagina">
+        <h2 class="cabecera-pagina__titulo">Inicio</h2>
+        <div class="cabecera-pagina__acciones">
+          <span class="monedero"><img src="/img/iconos/moneda.svg" width="14" height="14" alt=""><span id="monedas">— monedas</span></span>
+          <span class="avatar-inicial" id="avatar" aria-hidden="true">?</span>
+        </div>
+      </header>
+
+      <section class="estadisticas" aria-label="Tus estadísticas">
+        <article class="tarjeta estadistica">
+          <h3 class="estadistica__titulo" id="titulo-elo">ELO</h3>
+          <p class="estadistica__valor" id="valor-elo">—</p>
+          <p class="estadistica__detalle" id="detalle-elo">&nbsp;</p>
+        </article>
+        <article class="tarjeta estadistica">
+          <h3 class="estadistica__titulo" id="titulo-posicion">Posición</h3>
+          <p class="estadistica__valor" id="valor-posicion">—</p>
+          <p class="estadistica__detalle" id="detalle-posicion">&nbsp;</p>
+        </article>
+        <article class="tarjeta estadistica">
+          <h3 class="estadistica__titulo">Victorias (todos los lenguajes)</h3>
+          <p class="estadistica__valor" id="valor-victorias">—</p>
+          <p class="estadistica__detalle" id="detalle-victorias">&nbsp;</p>
+        </article>
+      </section>
+
+      <section class="tarjeta selector" aria-labelledby="titulo-selector">
+        <h3 class="selector__titulo" id="titulo-selector">¿En qué lenguaje quieres competir?</h3>
+        <p class="selector__subtitulo">Cada lenguaje tiene su propio ELO y su propia cola</p>
+        <div class="selector__lista" id="lista-lenguajes" role="radiogroup" aria-labelledby="titulo-selector"></div>
+      </section>
+
+      <div class="acciones">
+        <section class="duelo" aria-labelledby="titulo-duelo">
+          <p class="duelo__antetitulo">DUELO CLASIFICATORIO</p>
+          <h3 class="duelo__titulo" id="titulo-duelo">Buscar rival</h3>
+          <p class="duelo__texto" id="texto-duelo">Te emparejamos con alguien que ha elegido el mismo lenguaje y tiene un ELO parecido (±100). 10 minutos, un problema.</p>
+          <div class="duelo__pie">
+            <a class="duelo__boton" id="boton-buscar" href="/arena">Buscar partida</a>
+            <span class="duelo__estado"><img src="/img/iconos/punto.svg" width="8" height="8" alt=""><span id="estado-duelo">Emparejamiento por ELO</span></span>
+          </div>
+        </section>
+
+        <section class="tarjeta sala" aria-labelledby="titulo-sala">
+          <h3 class="sala__titulo" id="titulo-sala">Sala privada</h3>
+          <form class="sala__unirse" id="formulario-sala" novalidate>
+            <label class="campo__etiqueta" for="codigo-sala">Unirse con código</label>
+            <div class="sala__fila">
+              <input class="campo__entrada sala__codigo" id="codigo-sala" name="codigo" type="text" placeholder="ABC123" maxlength="6" autocomplete="off" spellcheck="false">
+              <button class="boton sala__boton-unirse" type="submit">Unirse</button>
+            </div>
+          </form>
+          <button class="boton sala__boton-crear" type="button" id="boton-crear-sala">Crear sala y compartir código</button>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

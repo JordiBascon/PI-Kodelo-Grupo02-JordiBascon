@@ -1,0 +1,223 @@
+.cabecera-pagina--tienda {
+  align-items: flex-start;
+  margin: 8px 0 26px;
+}
+
+.cabecera-pagina__subtitulo {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.pestanas-tienda {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0;
+  padding: 4px;
+  background: var(--surface2);
+  border-radius: var(--radio);
+}
+
+.pestanas-tienda__boton {
+  min-width: 130px;
+  height: 36px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.pestanas-tienda__boton[aria-selected='true'] {
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--surface);
+}
+
+.pestanas-tienda__boton:focus-visible {
+  outline: none;
+  box-shadow: var(--foco);
+}
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 26px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
+  padding: 15px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radio-grande);
+}
+
+.item--equipado {
+  border-color: var(--accent);
+}
+
+.item__vista {
+  display: grid;
+  place-items: center;
+  height: 130px;
+  background: var(--surface2);
+  border-radius: 12px;
+}
+
+.item__nombre {
+  margin-top: 14px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.item__rareza {
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+.item__rareza--raro { color: var(--accent); }
+.item__rareza--epico { color: #b54708; }
+.item__rareza--legendario { color: var(--coin-ink); }
+
+:root[data-tema='oscuro'] .item__rareza--raro { color: #a5b4fc; }
+:root[data-tema='oscuro'] .item__rareza--epico { color: #fdb022; }
+
+.item__descripcion {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.item__pie {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.precio {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 92px;
+  height: 34px;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--coin-ink);
+  background: #fffaeb;
+  border-radius: 17px;
+}
+
+:root[data-tema='oscuro'] .precio {
+  background: #3b2a0c;
+}
+
+.precio--gratis {
+  color: var(--ok);
+  background: var(--ok-soft);
+}
+
+:root[data-tema='oscuro'] .precio--gratis {
+  background: var(--ok-soft);
+}
+
+.item__accion {
+  flex: 1;
+  height: 34px;
+  padding: 0 12px;
+  font-size: 13px;
+  border-radius: var(--radio);
+}
+
+.item__accion--equipar {
+  color: var(--white);
+  background: var(--panel);
+}
+
+:root[data-tema='oscuro'] .item__accion--equipar {
+  background: var(--border-strong);
+}
+
+.item__accion--equipar:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.item__accion--equipado {
+  font-size: 12px;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  border-radius: 17px;
+  cursor: default;
+}
+
+.item__accion--retirado {
+  font-size: 12px;
+  color: var(--muted);
+  background: var(--surface2);
+  cursor: default;
+}
+
+.rejilla__vacia {
+  margin-top: 26px;
+  padding: 40px;
+  font-size: 14px;
+  color: var(--muted);
+  text-align: center;
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radio-grande);
+}
+
+@media (max-width: 720px) {
+  .cabecera-pagina--tienda {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pestanas-tienda {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  .pestanas-tienda__boton {
+    flex: none;
+    min-width: 0;
+  }
+
+  .rejilla {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  .item__pie {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .item__pie .precio {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .item__accion {
+    flex: 1 1 100%;
+  }
+}
+
+.item__accion--equipado:disabled,
+.item__accion--retirado:disabled {
+  opacity: 1;
+  cursor: default;
+}

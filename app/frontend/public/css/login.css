@@ -1,0 +1,228 @@
+.login {
+  display: grid;
+  grid-template-columns: minmax(0, 760fr) minmax(0, 680fr);
+  min-height: 100vh;
+}
+
+.login__hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 48px;
+  padding: 64px 64px 142px;
+  color: var(--white);
+  background: var(--panel);
+}
+
+.login__lema {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.login__titulo {
+  font-size: 54px;
+  font-weight: 700;
+  line-height: 62px;
+  letter-spacing: -0.01em;
+}
+
+.login__titulo-acento {
+  color: var(--hero-highlight);
+}
+
+.login__descripcion {
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--hero-muted);
+}
+
+.login__pie {
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+}
+
+.login__datos {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  margin: 0;
+}
+
+.login__datos dt {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.login__datos dd {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--muted2);
+}
+
+.login__kody {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.login__bocadillo {
+  width: 300px;
+  padding: 10px 16px;
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--hero-text);
+  background: var(--dark2);
+  border-radius: var(--radio-grande);
+}
+
+.login__principal {
+  position: relative;
+  display: grid;
+  place-items: start center;
+  padding: clamp(104px, 19vh, 190px) 24px 48px;
+  background: var(--bg);
+}
+
+.login__tema {
+  position: absolute;
+  top: 30px;
+  right: 56px;
+}
+
+.tarjeta-acceso {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  width: 100%;
+  max-width: 420px;
+  min-height: 540px;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radio-grande);
+}
+
+.pestanas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px;
+  background: var(--surface2);
+  border-radius: var(--radio);
+}
+
+.pestanas__boton {
+  height: 38px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.pestanas__boton[aria-selected='true'] {
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--surface);
+}
+
+.pestanas__boton:focus-visible {
+  outline: none;
+  box-shadow: var(--foco);
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formulario[hidden] {
+  display: none;
+}
+
+.formulario__cabecera {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.formulario__titulo {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.formulario__subtitulo {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.formulario__enviar {
+  width: 100%;
+  margin-top: 14px;
+}
+
+@media (max-width: 1100px) {
+  .login__hero {
+    padding: 48px 40px 64px;
+  }
+
+  .login__titulo {
+    font-size: clamp(28px, 3.6vw, 42px);
+    line-height: 1.15;
+  }
+
+  .login__datos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .login__bocadillo {
+    width: auto;
+  }
+}
+
+@media (max-width: 860px) {
+  .login {
+    grid-template-columns: 1fr;
+  }
+
+  .login__hero {
+    gap: 28px;
+    padding: 28px 24px 32px;
+  }
+
+  .login__titulo {
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .login__descripcion {
+    font-size: 16px;
+  }
+
+  .login__datos {
+    display: none;
+  }
+
+  .login__kody img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .login__principal {
+    padding: 72px 16px 32px;
+  }
+
+  .login__tema {
+    top: 16px;
+    right: 16px;
+  }
+
+  .tarjeta-acceso {
+    min-height: 0;
+  }
+}

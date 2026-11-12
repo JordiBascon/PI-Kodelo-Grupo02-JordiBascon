@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de KODY · KODELO</title>
+  <link rel="icon" href="/img/kody.svg" type="image/svg+xml">
+  <script src="/js/tema-inicial.js"></script>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script type="module" src="/js/admin-kody.js"></script>
+</head>
+<body>
+  <div class="app">
+    <nav class="lateral" aria-label="Menú principal">
+      <a class="marca" href="/inicio">
+        <span class="marca__logo" aria-hidden="true">&lt;/&gt;</span>
+        <span class="marca__texto">KODELO</span>
+      </a>
+      <ul class="navegacion">
+        <li><a class="nav__enlace" href="/inicio"><span class="icono icono--inicio" aria-hidden="true"></span><span class="nav__texto">Inicio</span></a></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El perfil"><span class="icono icono--perfil" aria-hidden="true"></span><span class="nav__texto">Perfil</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El chat con KODY"><img src="/img/kody.svg" width="24" height="24" alt="" class="nav__kody"><span class="nav__texto">KODY</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><a class="nav__enlace" href="/tienda"><span class="icono icono--tienda" aria-hidden="true"></span><span class="nav__texto">Tienda</span></a></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El ranking"><span class="icono icono--ranking" aria-hidden="true"></span><span class="nav__texto">Ranking</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El historial"><span class="icono icono--historial" aria-hidden="true"></span><span class="nav__texto">Historial</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El modo práctica"><span class="icono icono--practica" aria-hidden="true"></span><span class="nav__texto">Práctica</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+      </ul>
+      <ul class="lateral__pie">
+        <li><button class="nav__enlace nav__enlace--tema" type="button" id="boton-tema"><span class="icono icono--luna" aria-hidden="true"></span><span class="nav__texto">Modo oscuro</span></button></li>
+        <li><button class="nav__enlace" type="button" id="boton-salir"><span class="icono icono--salir" aria-hidden="true"></span><span class="nav__texto">Cerrar sesión</span></button></li>
+      </ul>
+    </nav>
+
+    <main class="contenido">
+      <header class="cabecera-pagina cabecera-pagina--admin">
+        <div>
+          <h1 class="cabecera-pagina__titulo">Gestión de KODY</h1>
+          <p class="cabecera-pagina__subtitulo">Las frases del día que KODY muestra en el inicio</p>
+        </div>
+        <div class="cabecera-pagina__acciones">
+          <span class="rol-actual" id="rol-actual">—</span>
+          <span class="avatar-inicial" id="avatar" aria-hidden="true">?</span>
+        </div>
+      </header>
+
+      <section class="estadisticas-admin" id="estadisticas" aria-label="Resumen"></section>
+
+      <section class="frase-hoy" aria-labelledby="frase-hoy-etiqueta">
+        <img src="/img/kody.svg" width="72" height="72" alt="">
+        <div>
+          <p class="frase-hoy__etiqueta" id="frase-hoy-etiqueta">Frase de hoy</p>
+          <p class="frase-hoy__texto" id="frase-hoy-texto">Cargando…</p>
+        </div>
+      </section>
+
+      <div class="herramientas">
+        <label class="herramientas__buscar">
+          <span class="oculto-accesible">Buscar frase</span>
+          <span class="icono icono--buscar" aria-hidden="true"></span>
+          <input class="campo__entrada" type="search" id="buscar" placeholder="Buscar frase" autocomplete="off">
+        </label>
+        <label>
+          <span class="oculto-accesible">Filtrar por mes</span>
+          <select class="campo__entrada" id="filtro-mes"><option value="">Todos los meses</option><option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option><option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option><option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option><option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option></select>
+        </label>
+        <button class="boton boton--principal boton--pequeno herramientas__nuevo" type="button" id="boton-nuevo"><span class="icono icono--mas" aria-hidden="true"></span>Nueva frase</button>
+      </div>
+
+      <div class="tabla-contenedor" id="tabla" aria-live="polite">
+        <div class="estado-admin estado-admin--carga">Cargando frases…</div>
+      </div>
+    </main>
+  </div>
+  <dialog class="dialogo" id="dialogo-frase" aria-labelledby="dialogo-frase-titulo">
+    <form novalidate>
+      <div class="dialogo__cabecera">
+        <h2 class="dialogo__titulo" id="dialogo-frase-titulo">Nueva frase</h2>
+      </div>
+      <div class="dialogo__cuerpo">
+        <div class="fila-campos">
+          <div class="campo">
+            <label class="campo__etiqueta" for="frase-dia">Día</label>
+            <input class="campo__entrada" id="frase-dia" type="number" min="1" max="31" step="1" inputmode="numeric">
+          </div>
+          <div class="campo">
+            <label class="campo__etiqueta" for="frase-mes">Mes</label>
+            <select class="campo__entrada" id="frase-mes"><option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option><option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option><option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option><option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option></select>
+          </div>
+        </div>
+        <p class="campo__ayuda" id="frase-dia-ayuda">Se muestra ese día todos los años.</p>
+        <div class="campo">
+          <label class="campo__etiqueta" for="frase-texto">Frase</label>
+          <textarea class="campo__entrada" id="frase-texto" name="frase-texto" maxlength="280" rows="3" autofocus></textarea>
+          <span class="campo__contador" data-contador="frase-texto">0 / 280</span>
+        </div>
+        <p class="aviso aviso--error dialogo__error" role="alert" hidden></p>
+      </div>
+      <div class="dialogo__pie">
+        <button class="boton boton--secundario boton--pequeno" type="button" data-cerrar>Cancelar</button>
+        <button class="boton boton--principal boton--pequeno" type="submit">Guardar frase</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="dialogo" id="dialogo-confirmar" aria-labelledby="confirmar-titulo">
+    <form method="dialog">
+      <div class="dialogo__cabecera">
+        <h2 class="dialogo__titulo" id="confirmar-titulo"></h2>
+        <p class="dialogo__texto"></p>
+      </div>
+      <div class="dialogo__pie">
+        <button class="boton boton--secundario boton--pequeno" value="no">Cancelar</button>
+        <button class="boton boton--pequeno boton--peligro" type="submit" value="si">Eliminar</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de problemas · KODELO</title>
+  <link rel="icon" href="/img/kody.svg" type="image/svg+xml">
+  <script src="/js/tema-inicial.js"></script>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script type="module" src="/js/admin-problemas.js"></script>
+</head>
+<body>
+  <div class="app">
+    <nav class="lateral" aria-label="Menú principal">
+      <a class="marca" href="/inicio">
+        <span class="marca__logo" aria-hidden="true">&lt;/&gt;</span>
+        <span class="marca__texto">KODELO</span>
+      </a>
+      <ul class="navegacion">
+        <li><a class="nav__enlace" href="/inicio"><span class="icono icono--inicio" aria-hidden="true"></span><span class="nav__texto">Inicio</span></a></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El perfil"><span class="icono icono--perfil" aria-hidden="true"></span><span class="nav__texto">Perfil</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El chat con KODY"><img src="/img/kody.svg" width="24" height="24" alt="" class="nav__kody"><span class="nav__texto">KODY</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><a class="nav__enlace" href="/tienda"><span class="icono icono--tienda" aria-hidden="true"></span><span class="nav__texto">Tienda</span></a></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El ranking"><span class="icono icono--ranking" aria-hidden="true"></span><span class="nav__texto">Ranking</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El historial"><span class="icono icono--historial" aria-hidden="true"></span><span class="nav__texto">Historial</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El modo práctica"><span class="icono icono--practica" aria-hidden="true"></span><span class="nav__texto">Práctica</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+      </ul>
+      <ul class="lateral__pie">
+        <li><button class="nav__enlace nav__enlace--tema" type="button" id="boton-tema"><span class="icono icono--luna" aria-hidden="true"></span><span class="nav__texto">Modo oscuro</span></button></li>
+        <li><button class="nav__enlace" type="button" id="boton-salir"><span class="icono icono--salir" aria-hidden="true"></span><span class="nav__texto">Cerrar sesión</span></button></li>
+      </ul>
+    </nav>
+
+    <main class="contenido">
+      <header class="cabecera-pagina cabecera-pagina--admin">
+        <div>
+          <h1 class="cabecera-pagina__titulo">Gestión de problemas</h1>
+          <p class="cabecera-pagina__subtitulo">Los retos de la Arena y sus casos de prueba</p>
+        </div>
+        <div class="cabecera-pagina__acciones">
+          <span class="rol-actual" id="rol-actual">—</span>
+          <span class="avatar-inicial" id="avatar" aria-hidden="true">?</span>
+        </div>
+      </header>
+
+      <section class="estadisticas-admin" id="estadisticas" aria-label="Resumen"></section>
+
+      <div class="herramientas">
+        <label class="herramientas__buscar">
+          <span class="oculto-accesible">Buscar problema</span>
+          <span class="icono icono--buscar" aria-hidden="true"></span>
+          <input class="campo__entrada" type="search" id="buscar" placeholder="Buscar problema" autocomplete="off">
+        </label>
+        <label>
+          <span class="oculto-accesible">Filtrar por lenguaje</span>
+          <select class="campo__entrada" id="filtro-lenguaje"><option value="">Todos los lenguajes</option></select>
+        </label>
+        <label>
+          <span class="oculto-accesible">Filtrar por dificultad</span>
+          <select class="campo__entrada" id="filtro-dificultad"><option value="">Todas las dificultades</option><option value="FACIL">Fácil</option><option value="MEDIA">Media</option><option value="DIFICIL">Difícil</option></select>
+        </label>
+        <button class="boton boton--principal boton--pequeno herramientas__nuevo" type="button" id="boton-nuevo"><span class="icono icono--mas" aria-hidden="true"></span>Nuevo problema</button>
+      </div>
+
+      <div class="tabla-contenedor" id="tabla" aria-live="polite">
+        <div class="estado-admin estado-admin--carga">Cargando problemas…</div>
+      </div>
+    </main>
+  </div>
+  <dialog class="dialogo dialogo--ancho" id="dialogo-problema" aria-labelledby="dialogo-problema-titulo">
+    <form novalidate>
+      <div class="dialogo__cabecera">
+        <h2 class="dialogo__titulo" id="dialogo-problema-titulo">Nuevo problema</h2>
+      </div>
+      <div class="dialogo__cuerpo">
+        <div class="campo">
+          <label class="campo__etiqueta" for="problema-titulo">Título</label>
+          <input class="campo__entrada" id="problema-titulo" name="problema-titulo" maxlength="120" autocomplete="off" autofocus>
+          <span class="campo__contador" data-contador="problema-titulo">0 / 120</span>
+        </div>
+        <div class="fila-campos">
+          <div class="campo">
+            <label class="campo__etiqueta" for="problema-lenguaje">Lenguaje</label>
+            <select class="campo__entrada" id="problema-lenguaje"></select>
+          </div>
+          <div class="campo">
+            <label class="campo__etiqueta" for="problema-dificultad">Dificultad</label>
+            <select class="campo__entrada" id="problema-dificultad"><option value="FACIL">Fácil</option><option value="MEDIA">Media</option><option value="DIFICIL">Difícil</option></select>
+          </div>
+          <div class="campo">
+            <label class="campo__etiqueta" for="problema-tiempo">Tiempo máx. (ms)</label>
+            <input class="campo__entrada" id="problema-tiempo" type="number" min="100" max="10000" step="100" inputmode="numeric">
+          </div>
+          <div class="campo">
+            <label class="campo__etiqueta" for="problema-memoria">Memoria máx. (MB)</label>
+            <input class="campo__entrada" id="problema-memoria" type="number" min="16" max="1024" step="16" inputmode="numeric">
+          </div>
+        </div>
+        <div class="campo">
+          <label class="campo__etiqueta" for="problema-enunciado">Enunciado</label>
+          <textarea class="campo__entrada" id="problema-enunciado" name="problema-enunciado" maxlength="5000" rows="3" rows="6"></textarea>
+          <span class="campo__contador" data-contador="problema-enunciado">0 / 5000</span>
+        </div>
+        <label class="interruptor"><input type="checkbox" id="problema-activo"><span class="interruptor__pista" aria-hidden="true"></span>Disponible en la Arena</label>
+        <section class="casos" aria-labelledby="casos-titulo">
+          <div class="casos__cabecera">
+            <h3 class="casos__titulo" id="casos-titulo">Casos de prueba</h3>
+            <button class="boton boton--secundario boton--pequeno" type="button" id="anadir-caso"><span class="icono icono--mas" aria-hidden="true"></span>Añadir caso</button>
+          </div>
+          <p class="campo__ayuda">Los casos visibles se muestran como ejemplo al jugador. Los ocultos solo los usa el juez al corregir.</p>
+          <div class="casos" id="casos"></div>
+        </section>
+        <p class="aviso aviso--error dialogo__error" role="alert" hidden></p>
+      </div>
+      <div class="dialogo__pie">
+        <button class="boton boton--secundario boton--pequeno" type="button" data-cerrar>Cancelar</button>
+        <button class="boton boton--principal boton--pequeno" type="submit">Guardar problema</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="dialogo" id="dialogo-confirmar" aria-labelledby="confirmar-titulo">
+    <form method="dialog">
+      <div class="dialogo__cabecera">
+        <h2 class="dialogo__titulo" id="confirmar-titulo"></h2>
+        <p class="dialogo__texto"></p>
+      </div>
+      <div class="dialogo__pie">
+        <button class="boton boton--secundario boton--pequeno" value="no">Cancelar</button>
+        <button class="boton boton--pequeno boton--peligro" type="submit" value="si">Eliminar</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

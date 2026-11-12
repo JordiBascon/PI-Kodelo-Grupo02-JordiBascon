@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de cuentas · KODELO</title>
+  <link rel="icon" href="/img/kody.svg" type="image/svg+xml">
+  <script src="/js/tema-inicial.js"></script>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script type="module" src="/js/admin-cuentas.js"></script>
+</head>
+<body>
+  <div class="app">
+    <nav class="lateral" aria-label="Menú principal">
+      <a class="marca" href="/inicio">
+        <span class="marca__logo" aria-hidden="true">&lt;/&gt;</span>
+        <span class="marca__texto">KODELO</span>
+      </a>
+      <ul class="navegacion">
+        <li><a class="nav__enlace" href="/inicio"><span class="icono icono--inicio" aria-hidden="true"></span><span class="nav__texto">Inicio</span></a></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El perfil"><span class="icono icono--perfil" aria-hidden="true"></span><span class="nav__texto">Perfil</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El chat con KODY"><img src="/img/kody.svg" width="24" height="24" alt="" class="nav__kody"><span class="nav__texto">KODY</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><a class="nav__enlace" href="/tienda"><span class="icono icono--tienda" aria-hidden="true"></span><span class="nav__texto">Tienda</span></a></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El ranking"><span class="icono icono--ranking" aria-hidden="true"></span><span class="nav__texto">Ranking</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El historial"><span class="icono icono--historial" aria-hidden="true"></span><span class="nav__texto">Historial</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+        <li><button class="nav__enlace nav__enlace--pronto" type="button" aria-disabled="true" data-seccion="El modo práctica"><span class="icono icono--practica" aria-hidden="true"></span><span class="nav__texto">Práctica</span><span class="nav__etiqueta-pronto">Pronto</span></button></li>
+      </ul>
+      <ul class="lateral__pie">
+        <li><button class="nav__enlace nav__enlace--tema" type="button" id="boton-tema"><span class="icono icono--luna" aria-hidden="true"></span><span class="nav__texto">Modo oscuro</span></button></li>
+        <li><button class="nav__enlace" type="button" id="boton-salir"><span class="icono icono--salir" aria-hidden="true"></span><span class="nav__texto">Cerrar sesión</span></button></li>
+      </ul>
+    </nav>
+
+    <main class="contenido">
+      <header class="cabecera-pagina cabecera-pagina--admin">
+        <div>
+          <h1 class="cabecera-pagina__titulo">Gestión de cuentas</h1>
+          <p class="cabecera-pagina__subtitulo">Busca jugadores, bloquea cuentas y gestiona el equipo</p>
+        </div>
+        <div class="cabecera-pagina__acciones">
+          <span class="rol-actual" id="rol-actual">—</span>
+          <span class="avatar-inicial" id="avatar" aria-hidden="true">?</span>
+        </div>
+      </header>
+
+      <section class="estadisticas-admin" id="estadisticas" aria-label="Resumen"></section>
+
+      <div class="herramientas">
+        <label class="herramientas__buscar">
+          <span class="oculto-accesible">Buscar cuenta</span>
+          <span class="icono icono--buscar" aria-hidden="true"></span>
+          <input class="campo__entrada" type="search" id="buscar" placeholder="Buscar por usuario o email" autocomplete="off">
+        </label>
+        <label>
+          <span class="oculto-accesible">Filtrar por rol</span>
+          <select class="campo__entrada" id="filtro-rol"><option value="">Todos los roles</option><option value="JUGADOR">Jugadores</option><option value="MODERADOR">Moderadores</option><option value="ADMIN">Administradores</option></select>
+        </label>
+        <label>
+          <span class="oculto-accesible">Filtrar por estado</span>
+          <select class="campo__entrada" id="filtro-estado"><option value="">Todos los estados</option><option value="ACTIVO">Activas</option><option value="BLOQUEADO">Bloqueadas</option><option value="SIN_VERIFICAR">Sin verificar</option></select>
+        </label>
+      </div>
+
+      <div class="tabla-contenedor" id="tabla" aria-live="polite">
+        <div class="estado-admin estado-admin--carga">Cargando cuentas…</div>
+      </div>
+
+      <section class="seccion-admin" aria-labelledby="titulo-registro">
+        <h2 class="seccion-admin__titulo" id="titulo-registro">Registro de acciones</h2>
+        <ol class="registro" id="registro"></ol>
+      </section>
+    </main>
+  </div>
+  <dialog class="dialogo" id="dialogo-bloqueo" aria-labelledby="dialogo-bloqueo-titulo">
+    <form novalidate>
+      <div class="dialogo__cabecera">
+        <h2 class="dialogo__titulo" id="dialogo-bloqueo-titulo">Bloquear cuenta</h2>
+        <p class="dialogo__texto" id="dialogo-bloqueo-texto"></p>
+      </div>
+      <div class="dialogo__cuerpo">
+        <fieldset class="opciones">
+          <legend>Duración</legend>
+            <label class="opcion"><input type="radio" name="duracion" value="24h"><span>24 horas</span></label>
+            <label class="opcion"><input type="radio" name="duracion" value="7d"><span>7 días</span></label>
+            <label class="opcion"><input type="radio" name="duracion" value="30d"><span>30 días</span></label>
+            <label class="opcion"><input type="radio" name="duracion" value="permanente"><span>Permanente</span></label>
+        </fieldset>
+        <div class="campo">
+          <label class="campo__etiqueta" for="motivo-bloqueo">Motivo</label>
+          <textarea class="campo__entrada" id="motivo-bloqueo" name="motivo-bloqueo" maxlength="200" rows="3" autofocus></textarea>
+          <span class="campo__ayuda">El jugador lo verá al intentar iniciar sesión.</span>
+          <span class="campo__contador" data-contador="motivo-bloqueo">0 / 200</span>
+        </div>
+        <p class="aviso aviso--error dialogo__error" role="alert" hidden></p>
+      </div>
+      <div class="dialogo__pie">
+        <button class="boton boton--secundario boton--pequeno" type="button" data-cerrar>Cancelar</button>
+        <button class="boton boton--peligro boton--pequeno" type="submit">Bloquear cuenta</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="dialogo" id="dialogo-monedas" aria-labelledby="dialogo-monedas-titulo">
+    <form novalidate>
+      <div class="dialogo__cabecera">
+        <h2 class="dialogo__titulo" id="dialogo-monedas-titulo">Ajustar monedas</h2>
+        <p class="dialogo__texto" id="dialogo-monedas-texto"></p>
+      </div>
+      <div class="dialogo__cuerpo">
+        <div class="campo">
+          <label class="campo__etiqueta" for="monedas-nuevas">Nuevo saldo</label>
+          <input class="campo__entrada" id="monedas-nuevas" type="number" min="0" max="1000000" step="1" inputmode="numeric" autofocus>
+        </div>
+        <div class="campo">
+          <label class="campo__etiqueta" for="motivo-monedas">Motivo</label>
+          <input class="campo__entrada" id="motivo-monedas" name="motivo-monedas" maxlength="150" autocomplete="off" >
+          <span class="campo__ayuda">Queda guardado en el registro de acciones.</span>
+          <span class="campo__contador" data-contador="motivo-monedas">0 / 150</span>
+        </div>
+        <p class="aviso aviso--error dialogo__error" role="alert" hidden></p>
+      </div>
+      <div class="dialogo__pie">
+        <button class="boton boton--secundario boton--pequeno" type="button" data-cerrar>Cancelar</button>
+        <button class="boton boton--principal boton--pequeno" type="submit">Guardar saldo</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="dialogo" id="dialogo-rol" aria-labelledby="dialogo-rol-titulo">
+    <form novalidate>
+      <div class="dialogo__cabecera">
+        <h2 class="dialogo__titulo" id="dialogo-rol-titulo">Cambiar rol</h2>
+        <p class="dialogo__texto" id="dialogo-rol-texto"></p>
+      </div>
+      <div class="dialogo__cuerpo">
+        <fieldset class="opciones">
+          <legend>Nuevo rol</legend>
+            <label class="opcion"><input type="radio" name="rol" value="JUGADOR"><span>Jugador</span></label>
+            <label class="opcion"><input type="radio" name="rol" value="MODERADOR"><span>Moderador</span></label>
+            <label class="opcion"><input type="radio" name="rol" value="ADMIN"><span>Administrador</span></label>
+        </fieldset>
+        <p class="campo__ayuda">Un moderador puede bloquear y desbloquear jugadores. Un administrador puede gestionarlo todo.</p>
+        <p class="aviso aviso--error dialogo__error" role="alert" hidden></p>
+      </div>
+      <div class="dialogo__pie">
+        <button class="boton boton--secundario boton--pequeno" type="button" data-cerrar>Cancelar</button>
+        <button class="boton boton--principal boton--pequeno" type="submit">Guardar rol</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="dialogo" id="dialogo-eliminar" aria-labelledby="dialogo-eliminar-titulo">
+    <form novalidate>
+      <div class="dialogo__cabecera">
+        <h2 class="dialogo__titulo" id="dialogo-eliminar-titulo">Eliminar cuenta</h2>
+        <p class="dialogo__texto" id="dialogo-eliminar-texto"></p>
+      </div>
+      <div class="dialogo__cuerpo">
+        <div class="campo">
+          <label class="campo__etiqueta" for="confirmacion">Escribe el nombre de usuario para confirmar</label>
+          <input class="campo__entrada" id="confirmacion" autocomplete="off" spellcheck="false" autofocus>
+        </div>
+        <p class="aviso aviso--error dialogo__error" role="alert" hidden></p>
+      </div>
+      <div class="dialogo__pie">
+        <button class="boton boton--secundario boton--pequeno" type="button" data-cerrar>Cancelar</button>
+        <button class="boton boton--peligro boton--pequeno" type="submit">Eliminar cuenta</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="dialogo" id="dialogo-confirmar" aria-labelledby="confirmar-titulo">
+    <form method="dialog">
+      <div class="dialogo__cabecera">
+        <h2 class="dialogo__titulo" id="confirmar-titulo"></h2>
+        <p class="dialogo__texto"></p>
+      </div>
+      <div class="dialogo__pie">
+        <button class="boton boton--secundario boton--pequeno" value="no">Cancelar</button>
+        <button class="boton boton--pequeno boton--peligro" type="submit" value="si">Eliminar</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
