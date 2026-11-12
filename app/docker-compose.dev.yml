@@ -1,0 +1,13 @@
+services:
+  api:
+    environment:
+      NODE_ENV: development
+    command: ["node", "--watch", "src/index.js"]
+    volumes:
+      - ./backend/src:/app/src:ro
+    ports:
+      - "127.0.0.1:3000:3000"
+
+  web:
+    volumes:
+      - ./frontend/public:/usr/share/nginx/html:ro
